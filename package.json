@@ -1,0 +1,21 @@
+{
+  "name": "webhook-app",
+  "version": "1.0.0",
+  "description": "REST API app that when sent a GitLab webhook, sends the git commit SHA to a Rocket Chat user as a direct message.",
+  "main": "webhook-app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leo Kuan",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-prom-bundle": "^6.4.1",
+    "inflight-requests": "^0.1.0",
+    "node-fetch": "^2.6.7",
+    "prom-client": "^14.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0"
+  }
+}
