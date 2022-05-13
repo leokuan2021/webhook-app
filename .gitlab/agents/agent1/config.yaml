@@ -1,0 +1,3 @@
+gitops:
+  manifest_projects:
+  - id: "devops/webhook-app"
