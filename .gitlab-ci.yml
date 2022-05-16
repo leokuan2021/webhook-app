@@ -37,7 +37,9 @@ deploy:
 #   - kubectl get all
 #   - kubectl apply -f webhook-app-deployment.yaml
   - kubectl config use-context devops/webhook-app:agent1
-  - kubectl apply -f webhook-app-deployment.yaml
+  - kubectl get all 
+  
+#  - kubectl apply -f webhook-app-deployment.yaml
 
 
 #  - kubectl config current-context
