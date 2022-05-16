@@ -17,15 +17,18 @@ build:docker:
       # to an empty string, and I would call that beyond mildly infuriating.
       command: ["--tls=false"]
   before_script:
-    - echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin
+    - docker login gitlab.leokuan.info:5050 -u devops -p GvyznAxu4WjscyHD_zNR 
+     # $GITLAB_CONTAINER_REG_TOKEN
+    #- echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin
 #    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
   script:
-    - docker build -t ${CONTAINER_IMAGE} .
-    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
-    - docker tag ${CONTAINER_IMAGE} leokuan/webhook-app:latest
+    #- docker build -t ${CONTAINER_IMAGE} .
+    - docker build -t gitlab.leokuan.info:5050/devops/webhook-app .
+    #- docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
+    #- docker tag ${CONTAINER_IMAGE} leokuan/webhook-app:latest
     #  --tag ${CONTAINER_IMAGE}
-    - docker push ${CONTAINER_IMAGE}
-
+    #- docker push ${CONTAINER_IMAGE}
+    - docker push gitlab.leokuan.info:5050/devops/webhook-app
 
 deploy:
   image:
