@@ -19,8 +19,8 @@ build:docker:
   before_script:
     #- docker login gitlab.leokuan.info:5050 -u devops -p GvyznAxu4WjscyHD_zNR
     #- echo GvyznAxu4WjscyHD_zNR | docker login gitlab.leokuan.info:5050 -u devops --password=stdin
-    - docker login gitlab.leokuan.info -u $CI_REGISTRY_USER -p CI_REGISTRY_PASSWORD
-     # $GITLAB_CONTAINER_REG_TOKEN $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login gitlab.leokuan.info -u devops -p fucker01
+     # $GITLAB_CONTAINER_REG_TOKEN $CI_REGISTRY_PASSWORD $CI_REGISTRY $CI_REGISTRY_USER
     #- echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin
 #    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
   script:
