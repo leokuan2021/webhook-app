@@ -25,12 +25,12 @@ build:docker:
 #    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
   script:
     #- docker build -t ${CONTAINER_IMAGE} .
-    - docker build -t gitlab.leokuan.info:5050/devops/webhook-app .
+    - docker build -t gitlab.leokuan.info/devops/webhook-app .
     #- docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
     #- docker tag ${CONTAINER_IMAGE} leokuan/webhook-app:latest
     #  --tag ${CONTAINER_IMAGE}
     #- docker push ${CONTAINER_IMAGE}
-    - docker push gitlab.leokuan.info:5050/devops/webhook-app
+    - docker push gitlab.leokuan.info/devops/webhook-app
 
 deploy:
   image:
