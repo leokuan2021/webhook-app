@@ -8,7 +8,7 @@ build:docker:
     # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-overlayfs-driver
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
-    CONTAINER_IMAGE: leokuan/webhook-app:${CI_COMMIT_SHORT_SHA}
+    CONTAINER_IMAGE: leokuan/webhook-app:${CI_COMMIT_SHA}
   services:
     - name: docker:20-dind
       alias: docker
@@ -19,18 +19,24 @@ build:docker:
   before_script:
     #- docker login gitlab.leokuan.info:5050 -u devops -p GvyznAxu4WjscyHD_zNR
     #- echo GvyznAxu4WjscyHD_zNR | docker login gitlab.leokuan.info:5050 -u devops --password=stdin
-    - docker login gitlab.leokuan.info -u devops -p fucker01
+    # - docker login gitlab.leokuan.info -u devops -p fucker01
      # $GITLAB_CONTAINER_REG_TOKEN $CI_REGISTRY_PASSWORD $CI_REGISTRY $CI_REGISTRY_USER
-    #- echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin
+    - echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin
 #    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
-  script:
+  script:  
+    - docker pull $CONTAINER_IMAGE:latest || true
+    - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE:latest .
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
+    - docker push $CONTAINER_IMAGE:latest
+
     #- docker build -t ${CONTAINER_IMAGE} .
-    - docker build -t gitlab.leokuan.info/devops/webhook-app .
+    #- docker build -t gitlab.leokuan.info/devops/webhook-app .
     #- docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
+    #:$CI_COMMIT_SHA
     #- docker tag ${CONTAINER_IMAGE} leokuan/webhook-app:latest
     #  --tag ${CONTAINER_IMAGE}
     #- docker push ${CONTAINER_IMAGE}
-    - docker push gitlab.leokuan.info/devops/webhook-app
+    #- docker push gitlab.leokuan.info/devops/webhook-app
 
 deploy:
   image:
