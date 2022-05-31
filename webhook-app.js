@@ -45,7 +45,7 @@ register.setDefaultLabels({
 })
 
 // URL for POST request to Rocket Chat's incoming webhook, quick and dirty for testing/demo purposes only; always use proper secrete management for production
-const url = 'http://rocketchat.leokuan.info/hooks/62061934f2a89e000d580276/9GLshYovLXcw2XsjnLbyW7CKfNnsmKnWqGZzyaWBLD3bQGRh'
+const url = 'http://rocketchat.leokuan.info/hooks/628f2bc88374570053f8945d/CG4d2wwWB2cd29W5ZXz7zfkWvWtJLE48YkkDwCBvoduoczgE'
 const headers = {
   "Content-Type": "application/json",
 }
