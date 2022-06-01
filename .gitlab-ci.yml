@@ -52,6 +52,7 @@ deploy:
 #   - kubectl get all
 #   - kubectl apply -f webhook-app-deployment.yaml
   - kubectl config use-context devops/webhook-app:agent1
+  - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" webhook-app.yaml
   - kubectl apply -f webhook-app.yaml
   - kubectl get all 
   
