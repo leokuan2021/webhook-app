@@ -19,7 +19,7 @@ spec:
         app: webhook-app
     spec:
       containers:
-      - image: leokuan/webhook-app:latest
+      - image: leokuan/webhook-app:<VERSION>
         name: webhook-app
         resources: {}
 ---
