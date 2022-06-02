@@ -12,54 +12,21 @@ build:docker:
   services:
     - name: docker:20-dind
       alias: docker
-      # in our experience although you'd assume this would be sufficient, this did 
-      # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set 
-      # to an empty string, and I would call that beyond mildly infuriating.
       command: ["--tls=false"]
   before_script:
-    #- docker login gitlab.leokuan.info:5050 -u devops -p GvyznAxu4WjscyHD_zNR
-    #- echo GvyznAxu4WjscyHD_zNR | docker login gitlab.leokuan.info:5050 -u devops --password=stdin
-    # - docker login gitlab.leokuan.info -u devops -p fucker01
-     # $GITLAB_CONTAINER_REG_TOKEN $CI_REGISTRY_PASSWORD $CI_REGISTRY $CI_REGISTRY_USER
     - echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin
-#    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
   script:  
-    #- docker pull $CONTAINER_IMAGE:latest || true
-    #- docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_COMMIT_SHORT_SHA --tag $CONTAINER_IMAGE:latest .
     - docker build -t ${CONTAINER_IMAGE} .
     - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
     - docker tag ${CONTAINER_IMAGE} leokuan/webhook-app:latest
     - docker push ${CONTAINER_IMAGE}
-    #- docker push $CONTAINER_IMAGE:$CI_COMMIT_SHORT_SHA
-    #- docker push $CONTAINER_IMAGE:latest
-
-    #- docker build -t ${CONTAINER_IMAGE} .
-    #- docker build -t gitlab.leokuan.info/devops/webhook-app .
-    #- docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
-    #:$CI_COMMIT_SHA
-    #- docker tag ${CONTAINER_IMAGE} leokuan/webhook-app:latest
-    #  --tag ${CONTAINER_IMAGE}
-    #- docker push ${CONTAINER_IMAGE}
-    #- docker push gitlab.leokuan.info/devops/webhook-app
 
 deploy:
   image:
     name: bitnami/kubectl:latest
     entrypoint: [""]
   script:
-#  - kubectl config get-contexts
-#  - kubectl config view
-#   - kubectl get all
-#   - kubectl apply -f webhook-app-deployment.yaml
   - kubectl config use-context devops/webhook-app:agent1
-  - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" webhook-app.yaml
-  - kubectl apply -f webhook-app.yaml
+  - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" webhook-app.yaml #dynamically replace placeholder with the latest CI_COMMIT_SHORT_SHA in the webhook-app deployment manifest
+  - kubectl apply -f webhook-app.yaml 
   - kubectl get all 
-  
-#  - kubectl apply -f webhook-app-deployment.yaml
-
-
-#  - kubectl config current-context
-#  - kubectl version
-#  - kubectl config use-context devops/webhook-app:k8s-agent
-#  - kubectl get pods
