@@ -77,7 +77,7 @@ app.post('/', (req, res) => {
     //let's respond quickly with a 200 status code just to be safe.
     res.status(200).end()
 
-    // extract the the SHA from the payload sent by the Gitlab webhook
+    // extract the the SHA from the payload sent by the Gitlab webhook 
     const data = {
       "text": `checkout SHA: ${req.body.checkout_sha}`,
     }
