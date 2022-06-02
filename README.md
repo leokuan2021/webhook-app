@@ -81,3 +81,4 @@ Create another custom metric for your REST API that exposes a count of in-flight
 Deploy a custom metrics adaptor for Prometheus, saving your k8s manifest(s) and/or chart `values.yaml`.
 
 Add an HPA manifest to your REST API that’s sensitive to the custom metric from step 1.
+
